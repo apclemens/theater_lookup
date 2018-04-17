@@ -1,0 +1,11 @@
+.theater {
+    cursor: pointer;
+}
+
+.include-false {
+    color: red;
+}
+
+.include-true {
+    color: green;
+}
