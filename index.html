@@ -9,33 +9,40 @@
   <body>
       <div id="sidebar">
     <form id="location-form">
-        <label for="zipcode">Zip code:</label>
+        <label id="zip-label" for="zipcode">Zip code:</label>
         <input type="text" pattern="[0-9]{5}" name="zip" id="zip">
-        <label for="radius">Distance:</label>
+        <label id="distance-label" for="radius">Distance:</label>
         <input type="number" name="distance" id="distance">
-        <select name="unit">
+        <select name="unit" id="unit-select">
             <option value="mi">mi</option>
             <option value="km">km</option>
         </select>
-        <label for="datefrom">Start date:</label>
+        <label id="datefrom-label" for="datefrom">Start date:</label>
         <input type="date" name="datefrom" id="datefrom">
-        <label for="dateto">End date:</label>
+        <label id="dateto-label" for="dateto">End date:</label>
         <input type="date" name="dateto" id="dateto">
-        <input type="submit" value="Submit">
+        <input id="submit" type="submit" value="Submit">
     </form>
     <div id="theater-list">
+        <!-- ko if: theaters().length > 0 -->
+        <h2>Theaters</h2>
         <ul data-bind="foreach: theaters">
             <li>
                 <span data-bind="text: name, click: $parent.toggleInclusion, attr: {'class': 'theater include-'+include}"></span>
             </li>
         </ul>
+        <!-- /ko -->
     </div>
     <div id="hidden-movies">
+        <!-- ko if: hidden_movies().length > 0 -->
+        <h2>Hidden movies</h2>
+        <h4>(click to re-add)</h4>
         <ul data-bind="foreach: hidden_movies">
             <li>
                 <span data-bind="text: title, click: $parent.toggleMovie"></span>
             </li>
         </ul>
+        <!-- /ko -->
     </div>
       </div>
     <table id="movie-list">

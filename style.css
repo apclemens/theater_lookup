@@ -48,6 +48,49 @@
 
 #location-form {
     display: grid;
+    grid-template-rows: 20px 30px 20px 30px 20px 30px 20px 30px 30px;
+    grid-template-columns: 260px 60px;
+}
+#zip-label {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+}
+#zip {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+}
+#distance-label {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+}
+#distance {
+    width: 240px;
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+}
+#unit-select {
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+}
+#datefrom-label {
+    grid-column: 1 / 3;
+    grid-row: 5 / 6;
+}
+#datefrom {
+    grid-column: 1 / 3;
+    grid-row: 6 / 7;
+}
+#dateto-label {
+    grid-column: 1 / 3;
+    grid-row: 7 / 8;
+}
+#dateto {
+    grid-column: 1 / 3;
+    grid-row: 8 / 9;
+}
+#submit {
+    grid-column: 1 / 3;
+    grid-row: 9 / 10;
 }
 
 #movie-list {
@@ -70,4 +113,8 @@
     text-align: left;
     background-color: black;
     color: white;
+}
+
+#theater-list ul {
+    list-style-type: none;
 }
