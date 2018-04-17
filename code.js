@@ -103,6 +103,10 @@ function AppViewModel() {
         }
 
         self.theaters.refresh();
+
+        self.movies().sort(function(a, b){
+            return a.title > b.title;
+        });
         self.movies.refresh();
     }
 
@@ -114,7 +118,13 @@ function AppViewModel() {
             self.movies.push(movie);
             self.hidden_movies().splice(self.hidden_movies().indexOf(movie), 1);
         }
+        self.movies().sort(function(a, b){
+            return a.title > b.title;
+        });
         self.movies.refresh();
+        self.hidden_movies().sort(function(a, b){
+            return a.title > b.title;
+        });
         self.hidden_movies.refresh();
     }
 }
