@@ -7,6 +7,7 @@
   </head>
 
   <body>
+      <div id="sidebar">
     <form id="location-form">
         <label for="zipcode">Zip code:</label>
         <input type="text" pattern="[0-9]{5}" name="zip" id="zip">
@@ -29,20 +30,51 @@
             </li>
         </ul>
     </div>
+    <div id="hidden-movies">
+        <ul data-bind="foreach: hidden_movies">
+            <li>
+                <span data-bind="text: title, click: $parent.toggleMovie"></span>
+            </li>
+        </ul>
+    </div>
+      </div>
     <table id="movie-list">
         <thead>
         <tr>
-            <th>Movie</th>
-            <th>Theaters</th>
-            <th>Scores</th>
+            <th style="width: 25%;">Title</th>
+            <th style="width: 25%;">Theaters</th>
+            <th style="width: 12.5%;">Genres</th>
+            <th style="width: 12.5%;">Directed by</th>
+            <th style="width: 25%;">Cast</th>
         </tr>
         </thead>
         <tbody data-bind="foreach: movies">
-            <tr data-bind="if: theaters.length>0">
-                <td data-bind="text: title"></td>
-                <td data-bind="text: theaters"></td>
-                <td data-bind="text: scores"></td>
+            <!-- ko if: theaters.length > 0 -->
+            <tr>
+                <td>
+                    <div class="remove-button" data-bind="click: $parent.toggleMovie"></div>
+                    <span data-bind="text: title"></span>
+                </td>
+                <td>
+                    <ul data-bind="foreach: theaters">
+                        <li class="tooltip">
+                            <span data-bind="text: name"></span>
+                            <span class="tooltiptext">
+                                <ul data-bind="foreach: $parent.showtimes">
+                                    <li data-bind="text: formatDateTime(dateTime)"></li>
+                                </ul>
+                            </span>
+                        </li>
+                    </ul>
+                </td>
+                <td class="hidden-block" data-bind="text: genres.join(', ')">
+                </td>
+                <td class="hidden-block" data-bind="text: directors.join(', ')">
+                </td>
+                <td class="hidden-block" data-bind="text: topCast.join(', ')">
+                </td>
             </tr>
+            <!-- /ko -->
         </tbody>
     </table>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>

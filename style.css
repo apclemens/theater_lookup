@@ -9,3 +9,65 @@
 .include-true {
     color: green;
 }
+
+.remove-button {
+    background-image: url('remove.png');
+    height: 16px;
+    width: 16px;
+    background-size: cover;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip {
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+#sidebar {
+    position: fixed;
+    width: 320px;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+#location-form {
+    display: grid;
+}
+
+#movie-list {
+    margin-left: 320px;
+    width: calc(100% - 320px);
+}
+#movie-list td, #movie-list th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+#movie-list tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+#movie-list tr:nth-child(odd) {
+    background-color: #ddd;
+}
+#movie-list th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: black;
+    color: white;
+}

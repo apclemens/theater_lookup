@@ -4,10 +4,6 @@ var theatersUrl = baseUrl + '/movies/showings';
 var movies = [];
 var theaters = {};
 
-$(document).ready(function() {
-    // http://developer.tmsapi.com/Sample_Code
-});
-
 $('#location-form').on('submit', function(e) {
     e.preventDefault();
     var zip = e.target[0].value;
@@ -20,6 +16,7 @@ $('#location-form').on('submit', function(e) {
     var b = moment(endDate, 'DD-MM-YYYY');
     var numDays = b.diff(a, 'days');
 
+    /*
     $.ajax({
         url: theatersUrl,
         data: {
@@ -33,12 +30,27 @@ $('#location-form').on('submit', function(e) {
         },
         dataType: "jsonp",
     });
+    */
+
+    $.ajax({
+        dataType: "json",
+        url: "data.json",
+        data: {},
+        success: dataHandler,
+    })
 });
 
 function dataHandler(data) {
-    movies = data;
+    vm.movies(data);
+    vm.movies().forEach(function(m){
+        m.theaters = [];
+        if(!m.hasOwnProperty('directors')) m.directors = ['N/A'];
+        if(!m.hasOwnProperty('topCast')) m.topCast = ['N/A'];
+        if(!m.hasOwnProperty('longDescription')) m.longDescription = 'N/A';
+        if(!m.hasOwnProperty('genres')) m.genres = ['N/A'];
+    })
 
-    movies.forEach(function(m) {
+    data.forEach(function(m, movie_index) {
         m.showtimes.forEach(function(s) {
             var theater = s.theatre.id;
             if(!theaters.hasOwnProperty(theater)) {
@@ -47,15 +59,10 @@ function dataHandler(data) {
                     'name': s.theatre.name,
                     'id': theater,
                     'include': false,
+                    'movies': [],
                 });
             }
         });
-        vm.movies.push({
-            'id': m.rootId,
-            'title': m.title,
-            'theaters': [],
-            'scores': 10,
-        })
     })
 }
 
@@ -64,7 +71,8 @@ function AppViewModel() {
 
     self.theaters = ko.observableArray([]);
     self.movies = ko.observableArray([]);
-    
+    self.hidden_movies = ko.observableArray([]);
+
     self.toggleInclusion = function() {
         var t_id = this.id;
         self.theaters().forEach(function(t) {
@@ -76,6 +84,38 @@ function AppViewModel() {
     }
 
     self.refreshTheaters = function(t) {
+        if(t.include) {
+            self.movies().concat(self.hidden_movies()).forEach(function(m) {
+                m.showtimes.forEach(function(s) {
+                    if(s.theatre.id == t.id) {
+                        if(m.theaters.indexOf(t)==-1)
+                        m.theaters.push(t);
+                    }
+                });
+            })
+        } else {
+            self.movies().concat(self.hidden_movies()).forEach(function(m){
+                var index = m.theaters.indexOf(t);
+                if (index > -1) {
+                    m.theaters.splice(index, 1);
+                }
+            })
+        }
+
+        self.theaters.refresh();
+        self.movies.refresh();
+    }
+
+    self.toggleMovie = function(movie) {
+        if (self.hidden_movies().indexOf(movie) == -1) {
+            self.hidden_movies.push(movie);
+            self.movies().splice(self.movies().indexOf(movie), 1);
+        } else {
+            self.movies.push(movie);
+            self.hidden_movies().splice(self.hidden_movies().indexOf(movie), 1);
+        }
+        self.movies.refresh();
+        self.hidden_movies.refresh();
     }
 }
 
@@ -88,3 +128,24 @@ ko.observableArray.fn.refresh = function() {
     this([]);
     this(data);
 }
+
+function formatDateTime(dateTime) {
+    var a = moment(dateTime, "YYYY-MM-DDTHH:mm");
+    return a.format("dddd, MMMM Do YYYY, h:mm a");
+}
+
+function formatDirectors(directors) {
+    if(!directors) return 'N/A';
+    return directors.join(', ');
+}
+
+Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});
+
+$(document).ready( function() {
+    $('#datefrom').val(new Date().toDateInputValue());
+    $('#dateto').val(new Date().toDateInputValue());
+});
