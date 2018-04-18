@@ -64,8 +64,6 @@ h2,h4 {
     width: 320px;
     height: 100%;
     z-index: 1;
-    top: 0;
-    left: 0;
 }
 
 #location-form {
@@ -117,7 +115,7 @@ h2,h4 {
 }
 
 #movie-list {
-    margin-left: 320px;
+    margin-left: 325px;
     width: calc(100% - 320px);
 }
 #movie-list ul {
