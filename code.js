@@ -17,6 +17,7 @@ $('#location-form').on('submit', function(e) {
     var b = moment(endDate, 'DD-MM-YYYY');
     var numDays = b.diff(a, 'days');
 
+    /*
     $.ajax({
         url: theatersUrl,
         data: {
@@ -30,15 +31,14 @@ $('#location-form').on('submit', function(e) {
         },
         dataType: "jsonp",
     });
+    */
 
-    /*
     $.ajax({
         dataType: "json",
         url: "data.json",
         data: {},
         success: dataHandler,
     })
-    */
 });
 
 function dataHandler(data) {
@@ -50,6 +50,11 @@ function dataHandler(data) {
         if(!m.hasOwnProperty('topCast')) m.topCast = ['N/A'];
         if(!m.hasOwnProperty('longDescription')) m.longDescription = 'N/A';
         if(!m.hasOwnProperty('genres')) m.genres = ['N/A'];
+        m.scores = {
+            rt_critic: parseInt(Math.random() * 100),
+            rt_audience: parseInt(Math.random() * 100),
+            imdb: parseInt(Math.random() * 100)/10,
+        }
     })
 
     data.forEach(function(m, movie_index) {

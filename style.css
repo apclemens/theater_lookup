@@ -12,6 +12,10 @@ input, textarea, select{font-family:inherit;}
 h2,h4 {
     font-family: 'Acme', sans-serif;
 }
+h2 {
+    border-top: 2px solid;
+    padding: 5px 0;
+}
 
 .include-false {
     color: red;

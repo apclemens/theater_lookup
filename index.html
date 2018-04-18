@@ -64,11 +64,16 @@
     <table id="movie-list">
         <thead>
         <tr>
-            <th colspan="2" style="width: 25%;">Title</th>
-            <th style="width: 25%;">Theaters</th>
-            <th style="width: 12.5%;">Genres</th>
-            <th style="width: 12.5%;">Directed by</th>
-            <th style="width: 25%;">Cast</th>
+            <th colspan="2">Title</th>
+            <th>Theaters</th>
+            <!--
+            <th>RT critic</th>
+            <th>RT audience</th>
+            <th>IMDb</th>
+            -->
+            <th>Genres</th>
+            <th>Directed by</th>
+            <th>Cast</th>
         </tr>
         </thead>
         <tbody data-bind="foreach: movies">
@@ -105,6 +110,11 @@
                         </li>
                     </ul>
                 </td>
+                <!--
+                <td data-bind="text: scores.rt_critic"></td>
+                <td data-bind="text: scores.rt_audience"></td>
+                <td data-bind="text: scores.imdb"></td>
+                -->
                 <td class="hidden-block" data-bind="text: genres.join(', ')">
                 </td>
                 <td class="hidden-block" data-bind="text: directors.join(', ')">
