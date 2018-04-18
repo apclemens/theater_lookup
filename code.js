@@ -17,7 +17,6 @@ $('#location-form').on('submit', function(e) {
     var b = moment(endDate, 'DD-MM-YYYY');
     var numDays = b.diff(a, 'days');
 
-    /*
     $.ajax({
         url: theatersUrl,
         data: {
@@ -31,14 +30,15 @@ $('#location-form').on('submit', function(e) {
         },
         dataType: "jsonp",
     });
-    */
 
+    /*
     $.ajax({
         dataType: "json",
         url: "data.json",
         data: {},
         success: dataHandler,
     })
+    */
 });
 
 function dataHandler(data) {
@@ -59,15 +59,21 @@ function dataHandler(data) {
                 var theater_object = {
                     'name': s.theatre.name,
                     'id': theater,
-                    'include': true,
+                    'include': false,
                     'movies': [],
                 };
                 vm.theaters.push(theater_object);
-                vm.refreshTheaters(theater_object);
+                vm.refreshTheaters(theater_object, false);
             }
         });
     })
     // done
+    vm.theaters.refresh();
+
+    vm.movies().sort(function(a, b){
+        return a.title > b.title;
+    });
+    vm.movies.refresh();
     $('#sk-circle').hide();
 }
 
@@ -83,12 +89,12 @@ function AppViewModel() {
         self.theaters().forEach(function(t) {
             if(t.id == t_id) {
                 t.include = !t.include
-                self.refreshTheaters(t);
+                self.refreshTheaters(t, true);
             }
         })
     }
 
-    self.refreshTheaters = function(t) {
+    self.refreshTheaters = function(t, r) {
         if(t.include) {
             self.movies().concat(self.hidden_movies()).forEach(function(m) {
                 m.showtimes.forEach(function(s) {
@@ -107,12 +113,14 @@ function AppViewModel() {
             })
         }
 
-        self.theaters.refresh();
+        if (r) {
+            self.theaters.refresh();
 
-        self.movies().sort(function(a, b){
-            return a.title > b.title;
-        });
-        self.movies.refresh();
+            self.movies().sort(function(a, b){
+                return a.title > b.title;
+            });
+            self.movies.refresh();
+        }
     }
 
     self.toggleMovie = function(movie) {

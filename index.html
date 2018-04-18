@@ -84,7 +84,9 @@
                             <span data-bind="text: name"></span>
                             <span class="tooltiptext">
                                 <ul data-bind="foreach: $parent.showtimes">
+                                    <!-- ko if: theatre.id == $parent.id -->
                                     <li data-bind="text: formatDateTime(dateTime)"></li>
+                                    <!-- /ko -->
                                 </ul>
                             </span>
                         </li>
