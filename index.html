@@ -11,17 +11,17 @@
       <div id="sidebar">
     <form id="location-form">
         <label id="zip-label" for="zipcode">zip code:</label>
-        <input type="text" pattern="[0-9]{5}" name="zip" id="zip">
+        <input type="text" pattern="[0-9]{5}" name="zip" id="zip" required>
         <label id="distance-label" for="radius">radius:</label>
-        <input type="number" name="distance" id="distance" value="15">
+        <input type="number" name="distance" id="distance" value="15" required>
         <select name="unit" id="unit-select">
             <option value="mi">mi</option>
             <option value="km">km</option>
         </select>
         <label id="datefrom-label" for="datefrom">start date:</label>
-        <input type="date" name="datefrom" id="datefrom">
+        <input type="date" name="datefrom" id="datefrom" required>
         <label id="dateto-label" for="dateto">end date:</label>
-        <input type="date" name="dateto" id="dateto">
+        <input type="date" name="dateto" id="dateto" required>
         <input id="submit" type="submit" value="submit">
     </form>
     <div id="theater-list">
