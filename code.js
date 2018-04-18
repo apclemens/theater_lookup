@@ -5,7 +5,7 @@ var movies = [];
 var theaters = {};
 
 $('#location-form').on('submit', function(e) {
-    $('#loading').show();
+    $('#sk-circle').show();
     e.preventDefault();
     var zip = e.target[0].value;
     var distance = e.target[1].value;
@@ -68,7 +68,7 @@ function dataHandler(data) {
         });
     })
     // done
-    $('#loading').hide();
+    $('#sk-circle').hide();
 }
 
 function AppViewModel() {
