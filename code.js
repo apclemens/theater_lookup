@@ -55,12 +55,14 @@ function dataHandler(data) {
             var theater = s.theatre.id;
             if(!theaters.hasOwnProperty(theater)) {
                 theaters[theater] = {'name': s.theatre.name};
-                vm.theaters.push({
+                var theater_object = {
                     'name': s.theatre.name,
                     'id': theater,
-                    'include': false,
+                    'include': true,
                     'movies': [],
-                });
+                };
+                vm.theaters.push(theater_object);
+                vm.refreshTheaters(theater_object);
             }
         });
     })
