@@ -28,6 +28,10 @@ h2,h4 {
     list-style-type: none;
 }
 
+#loading {
+    display: none;
+}
+
 .remove-button {
     background-image: url('remove.png');
     height: 16px;
