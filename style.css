@@ -1,5 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Anton|IBM+Plex+Mono|Muli');
+
+body,html {
+    font-family: 'Muli', sans-serif;
+}
+input, textarea, select{font-family:inherit;}
+
 .theater {
     cursor: pointer;
+}
+
+h2,h4 {
+    font-family: 'Acme', sans-serif;
 }
 
 .include-false {
@@ -8,6 +19,13 @@
 
 .include-true {
     color: green;
+}
+
+.hidden-movie {
+    cursor: pointer;
+}
+#hidden-movies ul {
+    list-style-type: none;
 }
 
 .remove-button {
@@ -32,6 +50,10 @@
     position: absolute;
     z-index: 1;
 }
+.tooltiptext ul {
+    list-style-type: none;
+    padding: 5px 15px;
+}
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
@@ -47,6 +69,7 @@
 }
 
 #location-form {
+    font-family: 'IBM Plex Mono', monospace;
     display: grid;
     grid-template-rows: 20px 30px 20px 30px 20px 30px 20px 30px 30px;
     grid-template-columns: 260px 60px;
@@ -96,6 +119,9 @@
 #movie-list {
     margin-left: 320px;
     width: calc(100% - 320px);
+}
+#movie-list ul {
+    list-style-type: none;
 }
 #movie-list td, #movie-list th {
     border: 1px solid #ddd;

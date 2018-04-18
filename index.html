@@ -9,19 +9,19 @@
   <body>
       <div id="sidebar">
     <form id="location-form">
-        <label id="zip-label" for="zipcode">Zip code:</label>
+        <label id="zip-label" for="zipcode">zip code:</label>
         <input type="text" pattern="[0-9]{5}" name="zip" id="zip">
-        <label id="distance-label" for="radius">Distance:</label>
-        <input type="number" name="distance" id="distance">
+        <label id="distance-label" for="radius">radius:</label>
+        <input type="number" name="distance" id="distance" value="15">
         <select name="unit" id="unit-select">
             <option value="mi">mi</option>
             <option value="km">km</option>
         </select>
-        <label id="datefrom-label" for="datefrom">Start date:</label>
+        <label id="datefrom-label" for="datefrom">start date:</label>
         <input type="date" name="datefrom" id="datefrom">
-        <label id="dateto-label" for="dateto">End date:</label>
+        <label id="dateto-label" for="dateto">end date:</label>
         <input type="date" name="dateto" id="dateto">
-        <input id="submit" type="submit" value="Submit">
+        <input id="submit" type="submit" value="submit">
     </form>
     <div id="theater-list">
         <!-- ko if: theaters().length > 0 -->
@@ -39,7 +39,7 @@
         <h4>(click to re-add)</h4>
         <ul data-bind="foreach: hidden_movies">
             <li>
-                <span data-bind="text: title, click: $parent.toggleMovie"></span>
+                <span class="hidden-movie" data-bind="text: title, click: $parent.toggleMovie"></span>
             </li>
         </ul>
         <!-- /ko -->
