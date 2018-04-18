@@ -15,7 +15,7 @@ $('#location-form').on('submit', function(e) {
 
     var a = moment(startDate, 'YYYY-MM-DD');
     var b = moment(endDate, 'YYYY-MM-DD');
-    var numDays = b.diff(a, 'days');
+    var numDays = b.diff(a, 'days') + 1;
 
     $.ajax({
         url: theatersUrl,
