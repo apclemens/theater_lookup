@@ -123,6 +123,10 @@ h2,h4 {
     width: calc(100% - 320px);
 }
 #movie-list thead {
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
     position: sticky;
     top: 10px;
 }
