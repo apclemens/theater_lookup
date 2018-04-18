@@ -41,6 +41,7 @@
 </div>
         <!-- ko if: theaters().length > 0 -->
         <h2>Theaters</h2>
+        <h3>(click to include/exclude)</h3>
         <ul data-bind="foreach: theaters">
             <li>
                 <span data-bind="text: name, click: $parent.toggleInclusion, attr: {'class': 'theater include-'+include}"></span>
@@ -51,7 +52,7 @@
     <div id="hidden-movies">
         <!-- ko if: hidden_movies().length > 0 -->
         <h2>Hidden movies</h2>
-        <h4>(click to re-add)</h4>
+        <h3>(click to re-add)</h3>
         <ul data-bind="foreach: hidden_movies">
             <li>
                 <span class="hidden-movie" data-bind="text: title, click: $parent.toggleMovie"></span>
