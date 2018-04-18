@@ -154,3 +154,10 @@ h2,h4 {
 #theater-list ul {
     list-style-type: none;
 }
+
+.external-link {
+    width: 20px;
+}
+.external-link-wrapper {
+    width:20px;
+}

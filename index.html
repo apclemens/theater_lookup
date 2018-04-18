@@ -64,7 +64,7 @@
     <table id="movie-list">
         <thead>
         <tr>
-            <th style="width: 25%;">Title</th>
+            <th colspan="2" style="width: 25%;">Title</th>
             <th style="width: 25%;">Theaters</th>
             <th style="width: 12.5%;">Genres</th>
             <th style="width: 12.5%;">Directed by</th>
@@ -77,6 +77,19 @@
                 <td>
                     <div class="remove-button" data-bind="click: $parent.toggleMovie"></div>
                     <span data-bind="text: title"></span>
+                </td>
+                <td style="padding: 0;">
+                    <div class="external-link-wrapper">
+                        <a target="_blank" data-bind="attr: {href: 'http://www.google.com/search?q=site:en.wikipedia.org+' + title.replace(' ', '+') + releaseYear + '+film&btnI'}">
+                            <img class="external-link" src="wiki.png">
+                        </a>
+                        <a target="_blank" data-bind="attr: {href: 'http://www.google.com/search?q=site:rottentomatoes.com+' + title.replace(' ', '+') + releaseYear + '+film&btnI'}">
+                            <img class="external-link" src="rt.png">
+                        </a>
+                        <a target="_blank" data-bind="attr: {href: 'http://www.google.com/search?q=site:imdb.com+' + title.replace(' ', '+') + releaseYear + '+film&btnI'}">
+                            <img class="external-link" src="imdb.png">
+                        </a>
+                    </div>
                 </td>
                 <td>
                     <ul data-bind="foreach: theaters">
