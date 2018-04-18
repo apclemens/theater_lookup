@@ -1,4 +1,4 @@
-var apikey = "7w4ns8ynp6wbmnwrq6cf52qt";
+var apikey = "h6p3tbv6f2u5savqzhgq5wts";
 var baseUrl = "http://data.tmsapi.com/v1.1";
 var theatersUrl = baseUrl + '/movies/showings';
 var movies = [];
