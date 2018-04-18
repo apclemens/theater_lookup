@@ -13,8 +13,8 @@ $('#location-form').on('submit', function(e) {
     var startDate = e.target[3].value;
     var endDate = e.target[4].value;
 
-    var a = moment(startDate, 'DD-MM-YYYY');
-    var b = moment(endDate, 'DD-MM-YYYY');
+    var a = moment(startDate, 'YYYY-MM-DD');
+    var b = moment(endDate, 'YYYY-MM-DD');
     var numDays = b.diff(a, 'days');
 
     $.ajax({
