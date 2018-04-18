@@ -7,6 +7,8 @@ var theaters = {};
 $('#location-form').on('submit', function(e) {
     $('#sk-circle').show();
     e.preventDefault();
+    vm.movies([]);
+    vm.theaters([]);
     var zip = e.target[0].value;
     var distance = e.target[1].value;
     var unit = e.target[2].value;
