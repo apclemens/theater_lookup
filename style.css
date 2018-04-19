@@ -32,6 +32,10 @@ h2 {
     list-style-type: none;
 }
 
+#movie-list tbody tr:hover {
+    background-color: white;
+}
+
 #sk-circle {
     display: none;
 }
