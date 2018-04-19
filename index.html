@@ -81,7 +81,12 @@
             <tr>
                 <td>
                     <div class="remove-button" data-bind="click: $parent.toggleMovie"></div>
-                    <span data-bind="text: title"></span>
+                    <span class="tooltip">
+                        <span data-bind="text: title"></span>
+                        <span class="tooltiptext">
+                            <img data-bind="attr: {src: 'https://dlby.tmsimg.com/' + preferredImage.uri}">
+                        </span>
+                    </span>
                 </td>
                 <td style="padding: 0;">
                     <div class="external-link-wrapper">
