@@ -231,5 +231,6 @@ $(document).ready( function() {
                 score_lookup[allRows[singleRow].split(',')[0]] = allRows[singleRow].split(',')[1];
             }
         },
+        error: function(data) {console.log(data);}
     });
 });
