@@ -53,7 +53,7 @@ function dataHandler(data) {
         if(!m.hasOwnProperty('longDescription')) m.longDescription = 'N/A';
         if(!m.hasOwnProperty('genres')) m.genres = ['N/A'];
         m.scores = {
-            rt_critic: parseInt(Math.random() * 100),
+            rt: score_lookup.hasOwnProperty(m.title) ? parseInt(score_lookup[m.title]) : '',
             rt_audience: parseInt(Math.random() * 100),
             imdb: parseInt(Math.random() * 100)/10,
         }
@@ -117,7 +117,7 @@ function AppViewModel() {
         if (r) {
             self.theaters.refresh();
 
-            self.movies().sort(sortMovies);
+            self.movies().sort(sortFunction);
             self.movies.refresh();
         }
     }
@@ -130,20 +130,32 @@ function AppViewModel() {
             self.movies.push(movie);
             self.hidden_movies().splice(self.hidden_movies().indexOf(movie), 1);
         }
-        self.movies().sort(sortMovies);
+        self.movies().sort(sortFunction);
         self.movies.refresh();
-        self.hidden_movies().sort(sortMovies);
+        self.hidden_movies().sort(sortTitle);
         self.hidden_movies.refresh();
     }
 }
 
-function sortMovies(a, b) {
+function sortTitle(a, b) {
     var titleA = a.title.toLowerCase();
     var titleB = b.title.toLowerCase();
 
-    if (titleA < titleB) return -1;
-    if (titleA > titleB) return 1;
+    if (titleA < titleB) return -1 * sortDirection;
+    if (titleA > titleB) return 1 * sortDirection;
     return 0
+}
+var sortFunction = sortTitle;
+var sortDirection = 1;
+function sortScore(a, b) {
+    var scoreA = a.scores.rt;
+    var scoreB = b.scores.rt;
+
+    if (scoreA == '') return 1;
+    if (scoreB == '') return -1;
+    if (scoreA < scoreB) return 1 * sortDirection;
+    if (scoreA > scoreB) return -1 * sortDirection;
+    return 0;
 }
 
 var vm = new AppViewModel();
@@ -166,13 +178,58 @@ function formatDirectors(directors) {
     return directors.join(', ');
 }
 
+function formatRTScore(score) {
+    if (score == '') return '-';
+    return ''+score+'%';
+}
+
+function sortMovies(by) {
+    $('.sortable').removeClass('sorted-up sorted-down');
+    switch (by) {
+        case 'title': 
+            if (sortFunction == sortTitle)
+                sortDirection *= -1;
+            else {
+                sortFunction = sortTitle;
+                sortDirection = 1;
+            }
+            $('#title-header').addClass((sortDirection==1)?'sorted-up':'sorted-down');
+            break;
+        case 'score':
+            if (sortFunction == sortScore)
+                sortDirection *= -1;
+            else {
+                sortFunction = sortScore;
+                sortDirection = 1;
+            }
+            $('#rt-header').addClass((sortDirection==1)?'sorted-up':'sorted-down');
+            break;
+    }
+    vm.movies().sort(sortFunction);
+    vm.movies.refresh();
+}
+
 Date.prototype.toDateInputValue = (function() {
     var local = new Date(this);
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
     return local.toJSON().slice(0,10);
 });
 
+var score_lookup = {};
 $(document).ready( function() {
     $('#datefrom').val(new Date().toDateInputValue());
     $('#dateto').val(new Date().toDateInputValue());
+
+    scores_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTozIjxLh8iOcfkyE7rytN5Ajx1ZDpIsyZlyOIrPLYAqov-TFdm59vnCY70AAZhNyjMq_09jpPIY0vO/pub?gid=0&single=true&output=csv';
+    $.ajax({
+        url: scores_url,
+        type: 'get',
+        dataType: 'text',
+        success: function(data) {
+            var allRows = data.split(/\r?\n|\r/);
+            for (var singleRow = 0; singleRow < allRows.length; singleRow ++) {
+                score_lookup[allRows[singleRow].split(',')[0]] = allRows[singleRow].split(',')[1];
+            }
+        },
+    });
 });
