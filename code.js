@@ -145,18 +145,19 @@ function sortTitle(a, b) {
     if (titleA > titleB) return 1 * sortDirection;
     return 0
 }
-var sortFunction = sortTitle;
-var sortDirection = 1;
 function sortScore(a, b) {
     var scoreA = a.scores.rt;
     var scoreB = b.scores.rt;
 
+    if (scoreA == '' && scoreB == '') return sortTitle(a, b);
     if (scoreA == '') return 1;
     if (scoreB == '') return -1;
     if (scoreA < scoreB) return 1 * sortDirection;
     if (scoreA > scoreB) return -1 * sortDirection;
     return 0;
 }
+var sortFunction = sortTitle;
+var sortDirection = 1;
 
 var vm = new AppViewModel();
 ko.applyBindings(vm);
