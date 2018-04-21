@@ -231,6 +231,12 @@ $(document).ready( function() {
             for (var singleRow = 0; singleRow < allRows.length; singleRow ++) {
                 score_lookup[allRows[singleRow].split('\t')[0]] = allRows[singleRow].split('\t')[1];
             }
+            for (var m_index = 0; m_index < vm.movies().length; m_index ++) {
+                m.scores = {
+                    rt: score_lookup.hasOwnProperty(m.title) ? parseInt(score_lookup[m.title]) : '',
+                }
+            }
+            vm.movies.refresh();
         },
         error: function(data) {console.log(data);}
     });
