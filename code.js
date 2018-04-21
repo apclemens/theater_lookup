@@ -220,7 +220,7 @@ $(document).ready( function() {
     $('#datefrom').val(new Date().toDateInputValue());
     $('#dateto').val(new Date().toDateInputValue());
 
-    scores_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTozIjxLh8iOcfkyE7rytN5Ajx1ZDpIsyZlyOIrPLYAqov-TFdm59vnCY70AAZhNyjMq_09jpPIY0vO/pub?gid=0&single=true&output=csv';
+    scores_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTozIjxLh8iOcfkyE7rytN5Ajx1ZDpIsyZlyOIrPLYAqov-TFdm59vnCY70AAZhNyjMq_09jpPIY0vO/pub?gid=0&single=true&output=tsv';
     $.ajax({
         url: scores_url,
         type: 'get',
@@ -228,7 +228,7 @@ $(document).ready( function() {
         success: function(data) {
             var allRows = data.split(/\r?\n|\r/);
             for (var singleRow = 0; singleRow < allRows.length; singleRow ++) {
-                score_lookup[allRows[singleRow].split(',')[0]] = allRows[singleRow].split(',')[1];
+                score_lookup[allRows[singleRow].split('\t')[0]] = allRows[singleRow].split('\t')[1];
             }
         },
         error: function(data) {console.log(data);}
